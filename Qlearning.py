@@ -14,7 +14,7 @@ epsilon = 0.8
 plt.ylabel('Steps')
 plt.xlabel('Timesteps')
 plt.title('Tearning curve')
-seg = episode / 100
+seg = int(episode / 100)
 
 count = np.zeros(seg)
 

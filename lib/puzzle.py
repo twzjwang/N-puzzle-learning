@@ -14,6 +14,7 @@ def createPuzzle(size):
 def printPuzzle(frame):
     size = int(math.sqrt(len(frame)))
     print('')
+    print('manhattan: ', manhattanValue(frame))
     for i in range(0, size):
         for j in range(0, size):
             print("%2d" % (frame[size * i + j]), end=" ")
@@ -76,6 +77,29 @@ def movePuzzle(frame, move):
 
     return frame
 
+def movable(frame, move):   
+    space = frame.index(0)
+    size = int(math.sqrt(len(frame)))
+    if move == 0 and int(space / size) > 0:
+        return True
+    elif move == 1 and int(space / size) < size - 1:
+        return True
+    elif move == 2 and (space % size) - 1 >= 0:
+        return True
+    elif move == 3 and (space % size) + 1 < size:
+        return True
+    return False
+
+def manhattanValue(frame):
+    reward = 0
+    for i in range(0, len(frame)):
+        if frame[i]:
+            reward -= abs(int((frame[i] - 1) / 3) - int(i / 3))
+            reward -= abs((frame[i] - 1) % 3 - i % 3)
+        else:
+            reward -= abs(int((len(frame) - 1) / 3) - int(i / 3))
+            reward -= abs((len(frame) - 1) % 3 - i % 3)
+    return reward
 
 
 
